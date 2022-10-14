@@ -20,7 +20,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ./app:/var/www/html/app
+      - ./app:/usr/share/nginx/html/app
       - ./php/config/php.ini:/usr/local/etc/php/php.ini
 
   db:
