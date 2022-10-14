@@ -1,5 +1,8 @@
 <?php
 
+require_once '../vendor/autoload.php';
+
+
 class HomeView
 {
     public function __construct()
@@ -9,17 +12,12 @@ class HomeView
 
     public function showHome($loggedIn, $admin, $errorMessage = '')
     {
-        echo '<!DOCTYPE html>';
-        echo '<html lang="en">';
-        echo '<head>';
-        echo '    <meta charset="UTF-8">';
-        echo '    <meta http-equiv="X-UA-Compatible" content="IE=edge">';
-        echo '    <meta name="viewport" content="width=device-width, initial-scale=1.0">';
-        echo '    <title>Document</title>';
-        echo '</head>';
-        echo '<body>';
-        echo '    <h1> Hola Mundo! </h1>';
-        echo '</body>';
-        echo '</html>';
+
+        $loader = new \Twig\Loader\FilesystemLoader('./templates');
+        $twig = new \Twig\Environment($loader);
+
+        $template = $twig->load('index.twig');
+
+        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!']);
     }
 }
