@@ -21,7 +21,16 @@ class CategoryModel
 
     function getAll()
     {
-        
+        $query = $this->db->prepare('SELECT * FROM category;');
+        $query->execute();
+        $expenseData = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $result = array();
+        foreach($expenseData as $expense) {
+            $result[] = $this->hydrator->hydrate($expense, new Category());
+        }
+
+        return $result;
     }
 
     function get($categoryId) {
