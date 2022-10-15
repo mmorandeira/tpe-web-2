@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ERROR | E_PARSE);
+
 require_once 'Router.php';
 require_once './controllers/HomeController.php';
 require_once './controllers/ExpenseController.php';
@@ -14,6 +16,7 @@ $router->addRoute('', 'GET', 'HomeController', 'index');
 
 
 $router->addRoute('gastos', 'GET', 'ExpenseController', 'index');
+$router->addRoute('gasto/:ID', 'GET', 'ExpenseController', 'show');
 
 
 $router->route($_GET['action'], $_SERVER['REQUEST_METHOD'])

@@ -12,9 +12,10 @@ class ExpenseModel {
 
     function __construct()
     {
-        $this->db = new PDO('mysql:host=db;port=3306;dbname=app', 'root', '');
+        $this->db = new PDO('mysql:host=db;port=3306;dbname=app;charset=utf8', 'root', '');
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
+        $this->db->exec("set names 'utf8'");
+
         $this->hydrator = new ClassMethodsHydrator();
         $this->hydrator->addStrategy('date', new DateTimeStrategy());
     }
@@ -33,6 +34,13 @@ class ExpenseModel {
         return $result;
     }
 
+    function get($expenseId) {
+        $query = $this->db->prepare('SELECT * FROM expense WHERE id = ?;');
+        $query->execute(array($expenseId));
+        $expenseData = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $this->hydrator->hydrate($expenseData, new Expense());
+    }
 
 
 }

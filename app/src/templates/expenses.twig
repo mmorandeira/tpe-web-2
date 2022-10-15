@@ -1,0 +1,22 @@
+{% extends "index.twig" %}
+
+{% block content %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre del producto</th>
+            <th>Costo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for expense in expenses %}
+            <tr>
+                <td>{{ expense.id }}</td>
+                <td><a href="/gasto/{{ expense.id }}">{{ expense.productName }}</a></td>
+                <td>{{ expense.cost }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
