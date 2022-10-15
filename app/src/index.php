@@ -17,7 +17,7 @@ $router->addRoute('', 'GET', 'HomeController', 'index');
 
 //expense related paths
 $router->addRoute('gastos', 'GET', 'ExpenseController', 'index');
-$router->addRoute('gasto/:ID', 'GET', 'ExpenseController', 'show');
+$router->addRoute('gastos/:ID', 'GET', 'ExpenseController', 'show');
 
 //category related paths
 $router->addRoute('categorias', 'GET', 'CategoryController', 'index');

@@ -13,7 +13,7 @@
         {% for expense in expenses %}
             <tr>
                 <td>{{ expense.id }}</td>
-                <td><a href="/gasto/{{ expense.id }}">{{ expense.productName }}</a></td>
+                <td><a href="/gastos/{{ expense.id }}">{{ expense.productName }}</a></td>
                 <td>{{ expense.cost }}</td>
             </tr>
         {% endfor %}
