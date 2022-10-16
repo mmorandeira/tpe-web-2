@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS app.category(
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(20) NOT NULL,
     description VARCHAR(120),
-    color CHAR(6),
+    color CHAR(7),
     PRIMARY KEY(id)
 );
 

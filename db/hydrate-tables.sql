@@ -1,10 +1,10 @@
 
 INSERT INTO app.category (id, name, description, color) VALUES
-    (1, 'Supermercado', 'Gastos como leche, pan, articulos de limpieza, etc.', '00BB2D'),
-    (2, 'Gastos Fijos', 'Gastos de las tarjetas, deporte, servicios, impuestos, etc.', '00BB2D'),
-    (3, 'Salud', 'Gastos relacionados a la salud como farmacia, medicos, etc.', '00BB2D'),
-    (4, 'Ocio', 'Gastos como por ejemplo: juegos, salidas, etc.', '00BB2D'),
-    (5, 'Transporte', 'Gastos relacionados al transporte, nafta, colectivos, etc.', '00BB2D')
+    (1, 'Supermercado', 'Gastos como leche, pan, articulos de limpieza, etc.', '#00BB2D'),
+    (2, 'Gastos Fijos', 'Gastos de las tarjetas, deporte, servicios, impuestos, etc.', '#00BB2D'),
+    (3, 'Salud', 'Gastos relacionados a la salud como farmacia, medicos, etc.', '#00BB2D'),
+    (4, 'Ocio', 'Gastos como por ejemplo: juegos, salidas, etc.', '#00BB2D'),
+    (5, 'Transporte', 'Gastos relacionados al transporte, nafta, colectivos, etc.', '#00BB2D')
 ;
 
 INSERT INTO app.expense (id, date, product_name, cost, category_id) VALUES
