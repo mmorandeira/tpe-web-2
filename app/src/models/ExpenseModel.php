@@ -20,6 +20,20 @@ class ExpenseModel {
         $this->hydrator->addStrategy('date', new DateTimeStrategy());
     }
 
+    function getAllByCategory($categoryId)
+    {
+        $query = $this->db->prepare('SELECT * FROM expense WHERE category_id = ?;');
+        $query->execute(array($categoryId));
+        $expenseData = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $result = array();
+        foreach($expenseData as $expense) {
+            $result[] = $this->hydrator->hydrate($expense, new Expense());
+        }
+
+        return $result;
+    }
+
     function getAll()
     {
         $query = $this->db->prepare('SELECT * FROM expense;');

@@ -9,6 +9,7 @@ class ExpenseController {
 
     private $model;
     private $view;
+    private $categoryModel;
 
 
     function __construct()
@@ -26,8 +27,9 @@ class ExpenseController {
         $this->view->showAll($expenseData, false, false, '');
     }
 
-    function show($params) {
-        $expenseId = $params['pathParams'][':ID'];
+    function show($params)
+    {
+        $expenseId = $params['pathParams'][':expenseId'];
         $expenseData = $this->model->get($expenseId);
         $categoryData = $this->categoryModel->get($expenseData->getCategoryId());
         
@@ -36,4 +38,19 @@ class ExpenseController {
 
         $this->view->showOne($expenseData, $categoryData, true, null);
     }
+
+    function showAllByCategory($params)
+    {
+        $categoryId = $params['pathParams'][':categoryId'];
+
+        if(!$this->categoryModel->exist($categoryId))
+            echo 404;
+
+        $expenseData = $this->model->getAllByCategory($categoryId);
+
+        
+        $this->view->showAll($expenseData, false, false, '');
+
+    }
+
 }

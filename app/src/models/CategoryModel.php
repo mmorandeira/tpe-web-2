@@ -33,12 +33,22 @@ class CategoryModel
         return $result;
     }
 
-    function get($categoryId) {
+    function get($categoryId)
+    {
         $query = $this->db->prepare('SELECT * FROM category WHERE id = ?;');
         $query->execute(array($categoryId));
         $categoryData = $query->fetch(PDO::FETCH_ASSOC);
 
         return $this->hydrator->hydrate($categoryData, new Category());
+    }
+
+    function exist($categoryId)
+    {
+        $query = $this->db->prepare('SELECT * FROM category WHERE id = ?;');
+        $query->execute(array($categoryId));
+        $categoryData = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $query->rowCount() > 0;
     }
 
 }
