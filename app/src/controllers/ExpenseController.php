@@ -3,7 +3,8 @@
 require_once './models/ExpenseModel.php';
 require_once './models/CategoryModel.php';
 require_once './views/ExpenseView.php';
-
+require_once './models/hydrator/concrete/ClassMethodsHydrator.php';
+require_once './models/hydrator/strategy/DateStrategy.php';
 
 class ExpenseController {
 
@@ -22,9 +23,9 @@ class ExpenseController {
 
     function index(){
         $expenseData = $this->model->getAll();
-
+        $categoryData = $this->categoryModel->getAll();
         
-        $this->view->showAll($expenseData, false, false, '');
+        $this->view->showAll($expenseData, $categoryData, false, false, '');
     }
 
     function show($params)
@@ -43,14 +44,32 @@ class ExpenseController {
     {
         $categoryId = $params['pathParams'][':categoryId'];
 
-        if(!$this->categoryModel->exist($categoryId))
+        $category = null;
+        if(!$this->categoryModel->exist($categoryId)) {
             echo 404;
+        } else {
+            $category = $this->categoryModel->get($categoryId);
+        }
+
 
         $expenseData = $this->model->getAllByCategory($categoryId);
 
         
-        $this->view->showAll($expenseData, false, false, '');
+        $this->view->showAllOfCategory($expenseData, $category, false, false, '');
 
+    }
+
+    function add()
+    {
+        $hydrator = new ClassMethodsHydrator();
+        $hydrator->addStrategy('date', new DateStrategy());
+        $expense = $hydrator->hydrate($_POST, new Expense());
+
+
+        $this->model->add($expense);
+        $this->index(null, '');
+
+        
     }
 
 }

@@ -59,4 +59,23 @@ class Expense
     {
         $this->categoryId = $categoryId;
     }
+
+    public function isFilled(): bool
+    {
+        $props = [
+            'id' => false,
+            'date' => true,
+            'productName' => true,
+            'cost' => true,
+            'categoryId' => true 
+        
+        ];
+        foreach($props as $prop => $value) {
+            $rp = new ReflectionProperty('Expense', $prop);
+            if($rp->isInitialized($this) != $value) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

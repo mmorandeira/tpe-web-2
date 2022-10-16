@@ -1,12 +1,53 @@
 {% extends "index.twig" %}
 
 {% block content %}
+
+{% if category %}
+    <h1>{{ category.name }}</h1>
+{% endif %}
+
+{# if logeado #}
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Añadir gasto
+    </button>
+
+    <div class="collapse container" id="collapseExample">
+        <form action="/gastos/add" method="post">
+            <div class="mb-3">
+                <label for="date" class="form-label">Fecha</label>
+                <input type="date" name="date" id="date" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="productName" class="form-label">Nombre del producto</label>
+                <input type="text" name="productName" id="productName" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="cost" class="form-label">Costo</label>
+                <input type="number" name="cost" id="cost" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="categoryId" class="form-label">Categoria</label>
+                <select name="categoryId" id="categoryId" class="form-select" aria-label="Default select example">
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="btn" type="submit">Añadir</button>
+        </form>
+    </div>
+{# endif #}
+
 <table class="table table-hover">
     <thead>
         <tr>
             <th>Id</th>
             <th>Nombre del producto</th>
             <th>Costo</th>
+            {# if loggeado #}
+            <th>Editar</th>
+            <th>Borrar</th>
+            {# endif #}
         </tr>
     </thead>
     <tbody>
@@ -15,6 +56,10 @@
                 <td>{{ expense.id }}</td>
                 <td><a href="/gastos/{{ expense.id }}">{{ expense.productName }}</a></td>
                 <td>{{ expense.cost }}</td>
+                {# if loggeado #}
+                <td><a class="btn bi bi-pencil-square" href="/gastos/{{ expense.id }}/edit"></a></td>
+                <td><a class="btn bi bi-trash" href="/gastos/{{ expense.id}}/delete"></a></td>
+                {# endif #}
             </tr>
         {% endfor %}
     </tbody>

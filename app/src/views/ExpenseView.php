@@ -11,11 +11,18 @@ class ExpenseView {
         $this->twig = new \Twig\Environment($this->loader);
     }
 
-    public function showAll($expenses, $loggedIn, $admin, $errorMessage = '')
+    public function showAll($expenses, $categories, $loggedIn, $admin, $errorMessage = '')
     {
         $template = $this->twig->load('expenses.twig');
 
-        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'expenses' => $expenses]);
+        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'expenses' => $expenses, 'categories' => $categories]);
+    }
+
+    public function showAllOfCategory($expenses, $category, $loggedIn, $admin, $errorMessage = '')
+    {
+        $template = $this->twig->load('expenses.twig');
+
+        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'expenses' => $expenses, 'category' => $category]);
     }
 
     public function showOne($expense, $category, $loggedIn, $admin)

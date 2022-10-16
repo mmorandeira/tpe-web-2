@@ -2,7 +2,7 @@
 //namespace Model;
 
 require_once './models/hydrator/concrete/ClassMethodsHydrator.php';
-require_once './models/hydrator/strategy/DateTimeStrategy.php';
+require_once './models/hydrator/strategy/DateStrategy.php';
 require_once './models/Expense.php';
 
 class ExpenseModel {
@@ -17,7 +17,7 @@ class ExpenseModel {
         $this->db->exec("set names 'utf8'");
 
         $this->hydrator = new ClassMethodsHydrator();
-        $this->hydrator->addStrategy('date', new DateTimeStrategy());
+        $this->hydrator->addStrategy('date', new DateStrategy());
     }
 
     function getAllByCategory($categoryId)
@@ -56,5 +56,10 @@ class ExpenseModel {
         return $this->hydrator->hydrate($expenseData, new Expense());
     }
 
-
+    function add(Expense $expense)
+    {
+        $query = $this->db->prepare("INSERT INTO expense (id, date, product_name, cost, category_id) VALUES (NULL, ?, ?, ?, ?);");
+        $arr = array($expense->getDate()->format('Y-m-d'), $expense->getProductName(), $expense->getCost(), $expense->getCategoryId());
+        $query->execute($arr);
+    }
 }
