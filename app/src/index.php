@@ -30,6 +30,8 @@ $router->addRoute('gastos/:expenseId/edit', 'GET', 'ExpenseController', 'edit');
 $router->addRoute('categorias', 'GET', 'CategoryController', 'index');
 $router->addRoute('categorias/add', 'POST', 'CategoryController', 'add');
 $router->addRoute('categorias/:categoryId/delete', 'GET', 'CategoryController', 'delete');
+$router->addRoute('categorias/:categoryId/edit', 'GET', 'CategoryController', 'edit');
+$router->addRoute('categorias/:categoryId/update', 'POST', 'CategoryController', 'update');
 
 
 $router->route($_GET['action'], $_SERVER['REQUEST_METHOD'])

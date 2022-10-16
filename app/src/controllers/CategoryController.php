@@ -43,4 +43,24 @@ class CategoryController {
         if ($this->model->delete($categoryId))
             header("Location:" . BASE_URL . "categorias");
     }
+
+    function edit($params)
+    {
+        $categoryId = $params['pathParams'][':categoryId'];
+        $category = $this->model->get($categoryId);
+        if (empty($category))
+            return $this->index(null, "The career does not exist.");
+        $this->view->showEdit($category, null, null);
+    }
+
+    function update($params)
+    {
+        $categoryId = $params['pathParams'][':categoryId'];
+        $category = $this->hydrator->hydrate($_POST, new Category());
+        $category->setId($categoryId);
+        
+        
+        header("Location:" . BASE_URL . "categorias");
+        $this->model->update($category);
+    }
 }

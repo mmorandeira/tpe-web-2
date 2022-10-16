@@ -67,4 +67,10 @@ class CategoryModel
         }
         return true;    
     }
+
+    function update(Category $category)
+    {
+        $query = $this->db->prepare("UPDATE category SET name = ?, description = ?, color = ? WHERE category.id = ?;");
+        $query->execute(array($category->getName(), $category->getDescription(), $category->getColor(), $category->getId()));
+    }
 }

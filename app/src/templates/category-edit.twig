@@ -1,0 +1,21 @@
+{% extends "index.twig" %}
+
+{% block content %}
+<div class="container" id="formContainer">
+    <form action="/categorias/{{ category.id }}/update" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" name="name" id="name" class="form-control" value="{{ category.name }}">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Descripcion</label>
+            <input type="text" name="description" id="description" class="form-control" value="{{ category.description }}">
+        </div>
+        <div class="mb-3">
+            <label for="color" class="form-label">Color</label>
+            <input type="color" class="form-control form-control-color" name="color" id="color" value="{{ category.color }}" title="Choose your color">
+        </div>
+        <button class="btn" type="submit">Actualizar</button>
+    </form>
+</div>
+{% endblock %}

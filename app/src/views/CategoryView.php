@@ -17,4 +17,11 @@ class CategoryView
 
         echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'categories' => $categories]);
     }
+
+    public function showEdit($category, $loggedIn, $admin)
+    {
+        $template = $this->twig->load('category-edit.twig');
+
+        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'category' => $category]);
+    }
 }
