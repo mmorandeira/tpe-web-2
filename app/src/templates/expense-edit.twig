@@ -1,0 +1,29 @@
+{% extends "index.twig" %}
+
+{% block content %}
+<div class="container" id="formContainer">
+    <form action="/gastos/{{ expense.id }}/update" method="post">
+        <div class="mb-3">
+            <label for="date" class="form-label">Fecha</label>
+            <input type="date" name="date" id="date" class="form-control" value="{{ expense.date | date('Y-m-d') }}">
+        </div>
+        <div class="mb-3">
+            <label for="productName" class="form-label">Nombre del producto</label>
+            <input type="text" name="productName" id="productName" class="form-control"  value="{{ expense.productName }}">
+        </div>
+        <div class="mb-3">
+            <label for="cost" class="form-label">Costo</label>
+            <input type="number" name="cost" id="cost" class="form-control"  value="{{ expense.cost }}">
+        </div>
+        <div class="mb-3">
+            <label for="categoryId" class="form-label">Categoria</label>
+            <select name="categoryId" id="categoryId" class="form-select" aria-label="Default select example">
+                {% for category in categories %}
+                    <option {{ expense.categoryId == category.id ? 'selected' : '' }} value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button class="btn" type="submit">Actualizar</button>
+    </form>
+</div>
+{% endblock %}

@@ -78,4 +78,10 @@ class ExpenseModel {
         }
         return true;        
     }
+
+    function update(Expense $expense)
+    {
+        $query = $this->db->prepare("UPDATE expense SET date = ?, product_name = ?, cost = ?, category_id = ? WHERE expense.id = ?;");
+        $query->execute(array($expense->getDate()->format('Y-m-d'), $expense->getProductName(), $expense->getCost(), $expense->getCategoryId(), $expense->getId()));
+    }
 }

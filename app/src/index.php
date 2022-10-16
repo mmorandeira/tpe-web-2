@@ -21,6 +21,9 @@ $router->addRoute('gastos/:expenseId', 'GET', 'ExpenseController', 'show');
 $router->addRoute('categorias/:categoryId/gastos', 'GET', 'ExpenseController', 'showAllByCategory');
 $router->addRoute('gastos/add', 'POST', 'ExpenseController', 'add');
 $router->addRoute('gastos/:expenseId/delete', 'GET', 'ExpenseController', 'delete');
+$router->addRoute('gastos/:expenseId/update', 'POST', 'ExpenseController', 'update');
+$router->addRoute('gastos/:expenseId/edit', 'GET', 'ExpenseController', 'edit');
+
 
 
 //category related paths

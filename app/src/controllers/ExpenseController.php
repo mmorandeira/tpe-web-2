@@ -11,6 +11,7 @@ class ExpenseController {
     private $model;
     private $view;
     private $categoryModel;
+    private $hydrator;
 
 
     function __construct()
@@ -18,6 +19,8 @@ class ExpenseController {
         $this->model = new ExpenseModel();
         $this->categoryModel = new CategoryModel();
         $this->view = new ExpenseView();
+        $this->hydrator = new ClassMethodsHydrator();
+        $this->hydrator->addStrategy('date', new DateStrategy());
     }
 
 
@@ -63,9 +66,7 @@ class ExpenseController {
 
     function add()
     {
-        $hydrator = new ClassMethodsHydrator();
-        $hydrator->addStrategy('date', new DateStrategy());
-        $expense = $hydrator->hydrate($_POST, new Expense());
+        $expense = $this->hydrator->hydrate($_POST, new Expense());
 
 
         $this->model->add($expense);
@@ -83,4 +84,26 @@ class ExpenseController {
             header("Location:" . BASE_URL . "gastos");
     }
 
+
+    function update($params)
+    {
+        $expenseId = $params['pathParams'][':expenseId'];
+        $expense = $this->hydrator->hydrate($_POST, new Expense());
+        $expense->setId($expenseId);
+        
+        
+        header("Location:" . BASE_URL . "gastos");
+        $this->model->update($expense);
+        $careers = $this->model->getAll();
+    }
+
+    function edit($params)
+    {
+        $expenseId = $params['pathParams'][':expenseId'];
+        $expense = $this->model->get($expenseId);
+        if (empty($expense))
+            return $this->index(null, "The career does not exist.");
+        $categoryData = $this->categoryModel->getAll();
+        $this->view->showEdit($expense, $categoryData, null, null);
+    }
 }

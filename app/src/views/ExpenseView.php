@@ -31,4 +31,11 @@ class ExpenseView {
 
         echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'expense' => $expense, 'category' => $category]);
     }
+
+    public function showEdit($expense, $categories, $loggedIn, $admin)
+    {
+        $template = $this->twig->load('expense-edit.twig');
+
+        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'expense' => $expense, 'categories' => $categories]);
+    }
 }
