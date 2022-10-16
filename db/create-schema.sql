@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS app.category(
 
 CREATE TABLE IF NOT EXISTS app.expense(
     id INT NOT NULL AUTO_INCREMENT,
-    date TIMESTAMP NOT NULL, 
+    date DATE NOT NULL, 
     product_name VARCHAR(60) NOT NULL,
     cost DECIMAL (10, 2),
     category_id INT NOT NULL,

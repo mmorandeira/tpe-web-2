@@ -4,13 +4,11 @@
 require_once './models/hydrator/strategy/StrategyInterface.php';
 
 
-use DateTime;
-
-class DateTimeStrategy implements StrategyInterface
+class DateStrategy implements StrategyInterface
 {
     public function hydrate($value) 
     {
-        $value = new DateTime($value);
+        $value = date_create($value);
         return $value;
     }
 }
