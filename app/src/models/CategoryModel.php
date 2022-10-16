@@ -56,4 +56,15 @@ class CategoryModel
         $query = $this->db->prepare("INSERT INTO category (id, name, description, color) VALUES (NULL, ?, ?, ?);");
         $query->execute(array($category->getName(), $category->getDescription(), $category->getColor()));
     }
+
+    function delete(int $categoryId): bool
+    {
+        try {
+            $query = $this->db->prepare("DELETE FROM category WHERE category.id = ?");
+            $query->execute(array($categoryId));
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;    
+    }
 }

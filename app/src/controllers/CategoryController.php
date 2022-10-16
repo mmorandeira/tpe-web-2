@@ -34,4 +34,13 @@ class CategoryController {
         $this->model->add($category);
         $this->index(null, '');
     }
+
+    function delete($params)
+    {
+        $categoryId = $params['pathParams'][':categoryId'];
+        $category = $this->model->get($categoryId);
+
+        if ($this->model->delete($categoryId))
+            header("Location:" . BASE_URL . "categorias");
+    }
 }
