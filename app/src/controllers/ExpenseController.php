@@ -32,12 +32,14 @@ class ExpenseController {
     {
         $expenseId = $params['pathParams'][':expenseId'];
         $expenseData = $this->model->get($expenseId);
-        $categoryData = $this->categoryModel->get($expenseData->getCategoryId());
-        
-        //if (empty($expenseData))
-        //    return $this->view->showNotFoundPage();
+        if($expenseData){
+            $categoryData = $this->categoryModel->get($expenseData->getCategoryId());
 
-        $this->view->showOne($expenseData, $categoryData, true, null);
+            //if (empty($expenseData))
+            //    return $this->view->showNotFoundPage();
+
+            $this->view->showOne($expenseData, $categoryData, true, null);
+        }
     }
 
     function showAllByCategory($params)
@@ -70,6 +72,15 @@ class ExpenseController {
         $this->index(null, '');
 
         
+    }
+
+    function delete($params)
+    {
+        $expenseId = $params['pathParams'][':expenseId'];
+        $expense = $this->model->get($expenseId);
+
+        if ($this->model->delete($expenseId))
+            header("Location:" . BASE_URL . "gastos");
     }
 
 }

@@ -48,12 +48,17 @@ class ExpenseModel {
         return $result;
     }
 
-    function get($expenseId) {
+    function get($expenseId)
+    {
         $query = $this->db->prepare('SELECT * FROM expense WHERE id = ?;');
         $query->execute(array($expenseId));
         $expenseData = $query->fetch(PDO::FETCH_ASSOC);
 
-        return $this->hydrator->hydrate($expenseData, new Expense());
+        $expense = null;
+        if($query->rowCount() > 0)
+            $expense = $this->hydrator->hydrate($expenseData, new Expense());
+
+        return $expense;
     }
 
     function add(Expense $expense)
@@ -61,5 +66,16 @@ class ExpenseModel {
         $query = $this->db->prepare("INSERT INTO expense (id, date, product_name, cost, category_id) VALUES (NULL, ?, ?, ?, ?);");
         $arr = array($expense->getDate()->format('Y-m-d'), $expense->getProductName(), $expense->getCost(), $expense->getCategoryId());
         $query->execute($arr);
+    }
+
+    function delete(int $expenseId): bool
+    {
+        try {
+            $query = $this->db->prepare("DELETE FROM expense WHERE expense.id = ?");
+            $query->execute(array($expenseId));
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;        
     }
 }
