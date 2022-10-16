@@ -66,43 +66,58 @@ class ExpenseController {
 
     function add()
     {
-        $expense = $this->hydrator->hydrate($_POST, new Expense());
+        if (AuthHelper::checkLoggedIn()) {
+            $expense = $this->hydrator->hydrate($_POST, new Expense());
 
 
-        $this->model->add($expense);
-        header("Location:" . BASE_URL . "gastos");
-
+            $this->model->add($expense);
+            header("Location:" . BASE_URL . "gastos");
+        } else {
+            header("Location:" . BASE_URL . "404");
+        }
         
     }
 
     function delete($params)
     {
-        $expenseId = $params['pathParams'][':expenseId'];
-        $expense = $this->model->get($expenseId);
+        if (AuthHelper::checkLoggedIn()) {
+            $expenseId = $params['pathParams'][':expenseId'];
+            $expense = $this->model->get($expenseId);
 
-        if ($this->model->delete($expenseId))
-            header("Location:" . BASE_URL . "gastos");
+            if ($this->model->delete($expenseId))
+                header("Location:" . BASE_URL . "gastos");
+        } else {
+            header("Location:" . BASE_URL . "404");
+        }
     }
 
 
     function update($params)
     {
-        $expenseId = $params['pathParams'][':expenseId'];
-        $expense = $this->hydrator->hydrate($_POST, new Expense());
-        $expense->setId($expenseId);
-        
-        
-        header("Location:" . BASE_URL . "gastos");
-        $this->model->update($expense);
+        if (AuthHelper::checkLoggedIn()) {
+            $expenseId = $params['pathParams'][':expenseId'];
+            $expense = $this->hydrator->hydrate($_POST, new Expense());
+            $expense->setId($expenseId);
+            
+            
+            header("Location:" . BASE_URL . "gastos");
+            $this->model->update($expense);
+        } else {
+            header("Location:" . BASE_URL . "404");
+        }
     }
 
     function edit($params)
     {
-        $expenseId = $params['pathParams'][':expenseId'];
-        $expense = $this->model->get($expenseId);
-        if (empty($expense))
-            return $this->index(null, "The career does not exist.");
-        $categoryData = $this->categoryModel->getAll();
-        $this->view->showEdit($expense, $categoryData, null, null);
+        if (AuthHelper::checkLoggedIn()) {
+            $expenseId = $params['pathParams'][':expenseId'];
+            $expense = $this->model->get($expenseId);
+            if (empty($expense))
+                return $this->index(null, "The career does not exist.");
+            $categoryData = $this->categoryModel->getAll();
+            $this->view->showEdit($expense, $categoryData, null, null);
+        } else {
+            header("Location:" . BASE_URL . "404");
+        }
     }
 }

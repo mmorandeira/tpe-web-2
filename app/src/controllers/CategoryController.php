@@ -2,6 +2,7 @@
 
 require_once './views/CategoryView.php';
 require_once './models/hydrator/concrete/ClassMethodsHydrator.php';
+require_once './helpers/AuthHelper.php';
 
 class CategoryController {
 
@@ -23,44 +24,59 @@ class CategoryController {
         $categoryData = $this->model->getAll();
 
         
-        $this->view->showAll($categoryData, false, false, '');
+        $this->view->showAll($categoryData);
     }
 
     function add()
     {
-        $category = $this->hydrator->hydrate($_POST, new Category());
-        header("Location:" . BASE_URL . "categorias");
-
-        $this->model->add($category);
-        $this->index(null, '');
+        if (AuthHelper::checkLoggedIn()) {
+            $category = $this->hydrator->hydrate($_POST, new Category());
+            header("Location:" . BASE_URL . "categorias");
+    
+            $this->model->add($category);
+        } else {
+            header("Location:" . BASE_URL . "404");
+        }
     }
 
     function delete($params)
     {
-        $categoryId = $params['pathParams'][':categoryId'];
-        $category = $this->model->get($categoryId);
+        if (AuthHelper::checkLoggedIn()) {
+            $categoryId = $params['pathParams'][':categoryId'];
+            $category = $this->model->get($categoryId);
 
-        if ($this->model->delete($categoryId))
-            header("Location:" . BASE_URL . "categorias");
+            if ($this->model->delete($categoryId))
+                header("Location:" . BASE_URL . "categorias");
+        } else {
+            header("Location:" . BASE_URL . "404");
+        }
     }
 
     function edit($params)
     {
-        $categoryId = $params['pathParams'][':categoryId'];
-        $category = $this->model->get($categoryId);
-        if (empty($category))
-            return $this->index(null, "The career does not exist.");
-        $this->view->showEdit($category, null, null);
+        if (AuthHelper::checkLoggedIn()) {
+            $categoryId = $params['pathParams'][':categoryId'];
+            $category = $this->model->get($categoryId);
+            if (empty($category))
+                return $this->index(null, "The career does not exist.");
+            $this->view->showEdit($category, null, null);
+        } else {
+            header("Location:" . BASE_URL . "404");
+        }
     }
 
     function update($params)
     {
-        $categoryId = $params['pathParams'][':categoryId'];
-        $category = $this->hydrator->hydrate($_POST, new Category());
-        $category->setId($categoryId);
-        
-        
-        header("Location:" . BASE_URL . "categorias");
-        $this->model->update($category);
+        if (AuthHelper::checkLoggedIn()) {
+            $categoryId = $params['pathParams'][':categoryId'];
+            $category = $this->hydrator->hydrate($_POST, new Category());
+            $category->setId($categoryId);
+            
+            
+            header("Location:" . BASE_URL . "categorias");
+            $this->model->update($category);
+        } else {
+            header("Location:" . BASE_URL . "404");
+        }
     }
 }
