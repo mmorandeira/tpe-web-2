@@ -13,7 +13,12 @@ class HomeController
 
     function index()
     {
-        $this->view->showHome(null,null,null);
+        $this->view->showHome();
+    }
+
+    function showPageNotFound()
+    {
+        $this->view->showPageNotFound();
     }
     
 }

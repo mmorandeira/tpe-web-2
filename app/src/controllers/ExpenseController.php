@@ -39,7 +39,7 @@ class ExpenseController {
             $categoryData = $this->categoryModel->get($expenseData->getCategoryId());
 
             //if (empty($expenseData))
-            //    return $this->view->showNotFoundPage();
+            //    return $this->view->showPageNotFound();
 
             $this->view->showOne($expenseData, $categoryData, true, null);
         }
@@ -55,12 +55,12 @@ class ExpenseController {
         } else {
             $category = $this->categoryModel->get($categoryId);
         }
-
+        $categories = $this->categoryModel->getAll();
 
         $expenseData = $this->model->getAllByCategory($categoryId);
 
         
-        $this->view->showAllOfCategory($expenseData, $category, false, false, '');
+        $this->view->showAllOfCategory($expenseData, $category, $categories);
 
     }
 
@@ -70,7 +70,7 @@ class ExpenseController {
 
 
         $this->model->add($expense);
-        $this->index(null, '');
+        header("Location:" . BASE_URL . "gastos");
 
         
     }
@@ -94,7 +94,6 @@ class ExpenseController {
         
         header("Location:" . BASE_URL . "gastos");
         $this->model->update($expense);
-        $careers = $this->model->getAll();
     }
 
     function edit($params)

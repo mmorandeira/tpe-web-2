@@ -1,41 +1,37 @@
-<?
+<?php
 
-class ExpenseView {
+require_once './views/View.php';
 
-    private $loader;
-    private $twig;
+class ExpenseView extends View
+{
 
-    public function __construct()
+    public function showAll($expenses, $categories)
     {
-        $this->loader = new \Twig\Loader\FilesystemLoader('./templates');
-        $this->twig = new \Twig\Environment($this->loader);
+        $this->addContext('expenses', $expenses);
+        $this->addContext('categories', $categories);
+        $this->render('expenses.twig');
     }
 
-    public function showAll($expenses, $categories, $loggedIn, $admin, $errorMessage = '')
+    public function showAllOfCategory($expenses, $category, $categories)
     {
-        $template = $this->twig->load('expenses.twig');
-
-        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'expenses' => $expenses, 'categories' => $categories]);
+        
+        $this->addContext('expenses', $expenses);
+        $this->addContext('category', $category);
+        $this->addContext('categories', $categories);
+        $this->render('expenses.twig');
     }
 
-    public function showAllOfCategory($expenses, $category, $loggedIn, $admin, $errorMessage = '')
+    public function showOne($expense, $category)
     {
-        $template = $this->twig->load('expenses.twig');
-
-        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'expenses' => $expenses, 'category' => $category]);
+        $this->addContext('expense', $expense);
+        $this->addContext('category', $category);
+        $this->render('expense.twig');
     }
 
-    public function showOne($expense, $category, $loggedIn, $admin)
+    public function showEdit($expense, $categories)
     {
-        $template = $this->twig->load('expense.twig');
-
-        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'expense' => $expense, 'category' => $category]);
-    }
-
-    public function showEdit($expense, $categories, $loggedIn, $admin)
-    {
-        $template = $this->twig->load('expense-edit.twig');
-
-        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'expense' => $expense, 'categories' => $categories]);
+        $this->addContext('expense', $expense);
+        $this->addContext('categories', $categories);
+        $this->render('expense-edit.twig');
     }
 }

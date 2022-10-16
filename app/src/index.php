@@ -6,6 +6,7 @@ require_once 'Router.php';
 require_once './controllers/HomeController.php';
 require_once './controllers/ExpenseController.php';
 require_once './controllers/CategoryController.php';
+require_once './controllers/UserController.php';
 
 define("BASE_URL", 'http://' . $_SERVER["SERVER_NAME"] . ':' . $_SERVER["SERVER_PORT"] . '/');
 define("LOGIN", BASE_URL . "login");
@@ -34,7 +35,16 @@ $router->addRoute('categorias/:categoryId/edit', 'GET', 'CategoryController', 'e
 $router->addRoute('categorias/:categoryId/update', 'POST', 'CategoryController', 'update');
 
 
+$router->addRoute('signup', 'GET', 'UserController', 'index');
+$router->addRoute('signin', 'GET', 'UserController', 'showSignIn');
+$router->addRoute('users/add', 'POST', 'UserController', 'add');
+$router->addRoute('verifyUser', 'POST', 'UserController', 'verifyUser');
+$router->addRoute('signout', 'GET', 'UserController', 'signOut');
+
+$router->setDefaultRoute('HomeController', 'showPageNotFound');
+
 $router->route($_GET['action'], $_SERVER['REQUEST_METHOD'])
+
 
 
 ?>

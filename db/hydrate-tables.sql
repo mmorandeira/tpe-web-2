@@ -24,3 +24,10 @@ INSERT INTO app.expense (id, date, product_name, cost, category_id) VALUES
     (14, '2022-10-14', 'Saldo sumo', 500.0, 5),
     (15, '2022-10-15', 'Peaje', 77.8, 5)
 ;
+
+-- all passwords are 'admin'
+INSERT INTO app.user (email, password) VALUES
+    ('user1@mail.com', '$2y$10$83CAyv4wHwzGaJNaA4AQUejasS/.hwFZZ4bk2v9sShdQT4CziS.CW'),
+    ('user2@mail.com', '$2y$10$R88nv/X6kMLSFKehriQL/uXR5CF7UxAfr33aCEeD/CFdMaPlkos2G'),
+    ('user3@mail.com', '$2y$10$rG5VKa3ehTGFTxY110isZ.2LRraMIjJCh2ry6zVUWbfOlmRLGbg4C')
+;

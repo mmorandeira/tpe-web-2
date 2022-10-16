@@ -14,16 +14,18 @@
     </a>
 
    <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="/gastos" class="nav-link">Gastos</a></li>
+        <li class="nav-item"><a href="/categorias" class="nav-link">Categorias</a></li>
     </ul>
 
     <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        {% if not isLogged %}
+            <a href="/signin"><button type="button" class="btn btn-outline-primary me-2">Login</button></a>
+            <a href="/signup"><button type="button" class="btn btn-primary">Sign-up</button></a>
+        {% else %}
+            <a href="/signout"><button type="button" class="btn btn-primary">Sign-out</button></a>
+        {% endif %}
     </div>
 </header>
 {% endblock %}

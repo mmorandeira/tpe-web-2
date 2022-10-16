@@ -1,23 +1,17 @@
 <?php
 
-require_once '../vendor/autoload.php';
+require_once './views/View.php';
 
-
-class HomeView
+class HomeView extends View
 {
-    public function __construct()
+
+    public function showHome()
     {
-        
+        $this->render('index.twig');
     }
 
-    public function showHome($loggedIn, $admin, $errorMessage = '')
+    public function showPageNotFound()
     {
-
-        $loader = new \Twig\Loader\FilesystemLoader('./templates');
-        $twig = new \Twig\Environment($loader);
-
-        $template = $twig->load('index.twig');
-
-        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!']);
+        $this->render('error404.twig');
     }
 }

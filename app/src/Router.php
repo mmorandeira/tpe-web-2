@@ -84,6 +84,9 @@ class Router
                 return;
             }
         }
+
+        if ($this->defaultRoute != null)
+            $this->defaultRoute->run();
     }
 
     public function addRoute($url, $verb, $controller, $method)

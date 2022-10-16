@@ -1,27 +1,19 @@
 <?php
 
-class CategoryView
+require_once './views/View.php';
+
+class CategoryView extends View
 {
-    private $loader;
-    private $twig;
-
-    public function __construct()
+    
+    public function showAll($categories)
     {
-        $this->loader = new \Twig\Loader\FilesystemLoader('./templates');
-        $this->twig = new \Twig\Environment($this->loader);
+        $this->addContext('categories', $categories);
+        $this->render('categories.twig');
     }
 
-    public function showAll($categories, $loggedIn, $admin, $errorMessage = '')
+    public function showEdit($category)
     {
-        $template = $this->twig->load('categories.twig');
-
-        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'categories' => $categories]);
-    }
-
-    public function showEdit($category, $loggedIn, $admin)
-    {
-        $template = $this->twig->load('category-edit.twig');
-
-        echo $template->render(['title' => 'Gestion de gastos', 'h1' => 'Hola mundo!', 'category' => $category]);
+        $this->addContext('category', $category);
+        $this->render('category-edit.twig');
     }
 }

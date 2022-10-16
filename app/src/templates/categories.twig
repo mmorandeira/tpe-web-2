@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{# if logeado #}
+{% if isLogged %}
     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#formContainer" aria-expanded="false" aria-controls="formContainer">
         Añadir categoria
     </button>
@@ -24,7 +24,7 @@
             <button class="btn" type="submit">Añadir</button>
         </form>
     </div>
-{# endif #}
+{% endif %}
 
 <table class="table table-hover">
     <thead>
@@ -32,10 +32,11 @@
             <th>Nombre</th>
             <th>Descripcion</th>
             <th>Color</th>
-            {# if logeado #}
-            <th>Editar</th>
-            <th>Borrar</th>
-            {# endif #}
+            <th>Ver gastos</th>
+            {% if isLogged %}
+                <th>Editar</th>
+                <th>Borrar</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -44,10 +45,11 @@
                 <td>{{ category.name }}</td>
                 <td>{{ category.description}}</td>
                 <td>{{ category.color }}</td>
-                {# if logeado #}
-                <td><a class="btn bi bi-pencil-square" href="/categorias/{{ category.id }}/edit"></a></td>
-                <td><a class="btn bi bi-trash" href="/categorias/{{ category.id}}/delete"></a></td>
-                {# endif #}
+                <td><a href="categorias/{{ category.id }}/gastos">Ir</a></td>
+                {% if isLogged %}
+                    <td><a class="btn bi bi-pencil-square" href="/categorias/{{ category.id }}/edit"></a></td>
+                    <td><a class="btn bi bi-trash" href="/categorias/{{ category.id}}/delete"></a></td>
+                {% endif %}
             </tr>
         {% endfor %}
     </tbody>
