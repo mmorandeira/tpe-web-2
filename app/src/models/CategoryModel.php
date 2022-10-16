@@ -51,4 +51,9 @@ class CategoryModel
         return $query->rowCount() > 0;
     }
 
+    function add(Category $category)
+    {
+        $query = $this->db->prepare("INSERT INTO category (id, name, description, color) VALUES (NULL, ?, ?, ?);");
+        $query->execute(array($category->getName(), $category->getDescription(), $category->getColor()));
+    }
 }

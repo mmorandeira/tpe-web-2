@@ -28,6 +28,7 @@ $router->addRoute('gastos/:expenseId/edit', 'GET', 'ExpenseController', 'edit');
 
 //category related paths
 $router->addRoute('categorias', 'GET', 'CategoryController', 'index');
+$router->addRoute('categorias/add', 'POST', 'CategoryController', 'add');
 
 
 $router->route($_GET['action'], $_SERVER['REQUEST_METHOD'])
