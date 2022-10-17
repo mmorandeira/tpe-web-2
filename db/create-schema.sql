@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS app.expense(
     cost DECIMAL (10, 2),
     category_id INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (category_id) REFERENCES category(id)
+    FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE
 );
 
 
