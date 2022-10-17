@@ -112,8 +112,7 @@ class ExpenseController {
         if (AuthHelper::checkLoggedIn()) {
             $expenseId = $params['pathParams'][':expenseId'];
             $expense = $this->model->get($expenseId);
-            if (empty($expense))
-                return $this->index(null, "The career does not exist.");
+            
             $categoryData = $this->categoryModel->getAll();
             $this->view->showEdit($expense, $categoryData, null, null);
         } else {

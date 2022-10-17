@@ -57,8 +57,7 @@ class CategoryController {
         if (AuthHelper::checkLoggedIn()) {
             $categoryId = $params['pathParams'][':categoryId'];
             $category = $this->model->get($categoryId);
-            if (empty($category))
-                return $this->index(null, "The career does not exist.");
+            
             $this->view->showEdit($category, null, null);
         } else {
             header("Location:" . BASE_URL . "404");
