@@ -14,7 +14,7 @@
     </a>
 
    <ul class="nav nav-pills">
-        <li class="nav-item"><a href="/" class="nav-link {{ currentPage == '/' ? 'active' : '' }}" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="/" class="nav-link {{ currentPage == '/' or currentPage == '/signin' ? 'active' : '' }}" aria-current="page">Home</a></li>
         <li class="nav-item"><a href="/gastos" class="nav-link {{ '/gastos' in currentPage ? 'active' : '' }}">Gastos</a></li>
         <li class="nav-item"><a href="/categorias" class="nav-link {{ '/categorias' in currentPage ? 'active' : '' }}">Categorias</a></li>
     </ul>
