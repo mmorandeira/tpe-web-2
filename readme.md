@@ -2,8 +2,8 @@
 
 <!--- TBC --->
 
-
 Para crear la base de datos y las tablas correr:
+
 ```bash
 docker-compose up --build -d
 docker exec -i tpe-web2-db mysql < ./db/create-schema.sql
