@@ -12,10 +12,11 @@ class UserView extends View
         $this->render('form.twig');
     }
 
-    function showSignIn()
+    function showSignIn(string $errorMsg = null)
     {
         $this->addContext('action', 'verifyUser');
         $this->addContext('submitLabel', 'Iniciar sesion');
+        $this->addContext('errorMsg', $errorMsg);
         $this->render('form.twig');
     }
 }

@@ -33,7 +33,7 @@ class UserController
         $this->model->add($user);
         header("Location: " . BASE_URL . "");
     }
-    
+
     function showSignIn()
     {
         $this->view->showSignIn();
@@ -51,11 +51,11 @@ class UserController
 
         $user = $this->model->getByEmail($_POST['email']);
 
-        if(!empty($user) && password_verify($_POST['password'], $user->getPassword())) {
+        if (!empty($user) && password_verify($_POST['password'], $user->getPassword())) {
             AuthHelper::saveSession($user);
             header("Location: " . BASE_URL . "");
+        } else {
+            $this->view->showSignIn("Usuario y/o contraseña erroneo.");
         }
-
     }
-
 }

@@ -27,6 +27,6 @@ class UserModel
         $query->execute(array($email));
         $userData = $query->fetch(PDO::FETCH_ASSOC);
         $h = new ClassMethodsHydrator();
-        return $h->hydrate($userData, new User());;
+        return  $userData ? $h->hydrate($userData, new User()) : null;
     }
 }

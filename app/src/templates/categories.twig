@@ -3,6 +3,11 @@
 {% block content %}
 
 {% if isLogged %}
+    <div class="alert alert-warning" role="alert">
+        <h2> CUIDADO </h2>
+         Al borrar una categoria, se borran los gastos asociados a la misma!
+    </div>
+    
     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#formContainer" aria-expanded="false" aria-controls="formContainer">
         Añadir categoria
     </button>
@@ -48,7 +53,7 @@
                 <td><a href="categorias/{{ category.id }}/gastos">Ir</a></td>
                 {% if isLogged %}
                     <td><a class="btn bi bi-pencil-square" href="/categorias/{{ category.id }}/edit"></a></td>
-                    <td><a class="btn bi bi-trash" href="/categorias/{{ category.id}}/delete"></a></td>
+                    <td><a class="btn bi bi-trash" href="/categorias/{{ category.id }}/delete"></a></td>
                 {% endif %}
             </tr>
         {% endfor %}
