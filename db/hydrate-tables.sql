@@ -1,3 +1,4 @@
+SET NAMES 'utf8';
 
 INSERT INTO app.category (id, name, description, color) VALUES
     (1, 'Supermercado', 'Gastos como leche, pan, articulos de limpieza, etc.', '#00BB2D'),
@@ -14,7 +15,7 @@ INSERT INTO app.expense (id, date, product_name, cost, category_id) VALUES
     (4, '2022-10-04', 'Internet', 5000.0, 2),
     (5, '2022-10-05', 'Alquiler', 30000.0, 2),
     (6, '2022-10-06', 'Abono celular', 1200.0, 2),
-    (7, '2022-10-07', 'Ibuprofeno', 321.5, 3),
+    (7, '2022-10-07', 'Ibuprofeno', 321.5, 3),image.png
     (8, '2022-10-08', 'Consulta odontologo', 5200.0, 3),
     (9, '2022-10-09', 'Masajes', 1000.0, 3),
     (10, '2022-10-10', 'Antares', 1423.75, 4),
